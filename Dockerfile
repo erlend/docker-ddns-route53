@@ -1,6 +1,7 @@
 FROM alpine
 
 ENV VERSION=2.0.2
+VOLUME /home/ddns/.aws
 
 RUN apk add -U curl bind-tools bash python3 && \
     pip3 install --upgrade --no-cache-dir pip awscli && \
