@@ -9,11 +9,12 @@ RUN apk add -U curl bind-tools bash python3 && \
     | tar zx && \
     mv ddns-route53-$VERSION/ddns-route53 /usr/local/bin && \
     adduser -D ddns && \
+    chown ddns:ddns /home/ddns/.aws && \
     apk del curl && \
     rm -rf ddns-route53-$VERSION /var/cache/apk/*
 
-VOLUME /home/ddns/.aws
+COPY entrypoint.sh /
 
 USER ddns
-ENTRYPOINT ["/usr/local/bin/ddns-route53"]
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["-h"]
